@@ -17,3 +17,19 @@ code:-
         }
         return ans;
     }
+TC->O(N^2);
+SC->O(N)
+
+Method-2(using lower bound)
+code:-
+int lengthOfLIS(vector<int>& nums) {
+        vector<int> res;
+        for(int i=0;i<nums.size();i++){
+            auto it=std::lower_bound(res.begin(),res.end(),nums[i]);
+            if(it==res.end()) res.push_back(nums[i]);
+            else *it=nums[i];
+        }
+        return res.size();
+    }
+TC->O(NlogN)
+SC->O(N);
