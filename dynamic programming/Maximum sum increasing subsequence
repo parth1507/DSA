@@ -1,0 +1,41 @@
+Maximum sum increasing subsequence
+
+Eg:-
+Input: N = 5, arr[] = {1, 101, 2, 3, 100} 
+Output: 106
+Explanation:The maximum sum of a
+increasing sequence is obtained from
+{1, 2, 3, 100}
+
+Eg 2:-
+Input: N = 3, arr[] = {1, 2, 3}
+Output: 6
+Explanation:The maximum sum of a
+increasing sequence is obtained from
+{1, 2, 3}
+
+method 1 (DP):-
+int maxSumIS(int arr[], int n)  
+	{  
+	    // Your code goes here
+	    int max=0;
+	    int msis[n];
+	    for(int i=0;i<n;i++){
+	        msis[i]=arr[i];
+	    }
+	    
+	    for(int i=1;i<n;i++){
+	        for(int j=i-1;j>=0;j--){
+	            if(arr[i]>arr[j] && msis[i]<msis[j]+arr[i]){
+	                msis[i]=msis[j]+arr[i];
+	            }
+	        }
+	    }
+	    
+	    for(int i=0;i<n;i++){
+	        if(max<msis[i]){
+	            max=msis[i];
+	        }
+	    }
+	    return max;
+	}  
