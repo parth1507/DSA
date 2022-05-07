@@ -1,0 +1,44 @@
+Gold Mine Problem
+
+Eg:-
+Input: n = 3, m = 3
+M = {{1, 3, 3},
+     {2, 1, 4},
+     {0, 6, 4}};
+Output: 12
+Explaination: 
+The path is {(1,0) -> (2,1) -> (2,2)}.
+
+Eg2:-
+Input: n = 4, m = 4
+M = {{1, 3, 1, 5},
+     {2, 2, 4, 1},
+     {5, 0, 2, 3},
+     {0, 6, 1, 2}};
+Output: 16
+Explaination: 
+The path is {(2,0) -> (3,1) -> (2,2) 
+-> (2,3)} or {(2,0) -> (1,1) -> (1,2) 
+-> (0,3)}.
+
+Code:-
+Method1:-using dp
+int maxGold(int n, int m, vector<vector<int>> M)
+    {
+        // code here
+        for(int col=m-2;col>=0;col--){
+            for(int row=0;row<n;row++){
+                int right=M[row][col+1];
+                int right_up=(row==0)?0:M[row-1][col+1];
+                int right_down=(row==n-1)?0:M[row+1][col+1];
+                M[row][col]=M[row][col]+max(right,max(right_up,right_down));
+            }
+        }
+        int res=M[0][0];
+        for(int i=1;i<n;i++){
+            res=max(res,M[i][0]);
+        }
+        return res;
+    }
+    TC-O(n*m)
+    SC->O(n*m)
