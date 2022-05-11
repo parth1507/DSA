@@ -1,0 +1,43 @@
+Example 1:
+
+Input:
+N = 1, K = 2
+Output: 2
+Explanation: 
+1. Drop the egg from floor 1. If it 
+   breaks, we know that f = 0.
+2. Otherwise, drop the egg from floor 2.
+   If it breaks, we know that f = 1.
+3. If it does not break, then we know f = 2.
+4. Hence, we need at minimum 2 moves to
+   determine with certainty what the value of f is.
+   
+Code:-
+Method 1(DP with memoization)
+int dp[201][201];
+    int solve(int n,int k){
+        
+        if(n==1) return k;
+        if(k==0) return 0;
+        
+        if(dp[n][k]!=-1) return dp[n][k];
+        
+        int ans=INT_MAX;
+        for(int i=1;i<=k;i++){
+            int broken=solve(n-1,i-1);
+            int notbroken=solve(n,k-i);
+            int temp=max(broken,notbroken);
+            ans=min(ans,temp+1);
+        }
+        return dp[n][k]=ans;
+    }
+    
+    int eggDrop(int n, int k) 
+    {
+        // your code here
+        memset(dp,-1,sizeof(dp));
+        return solve(n,k);
+    }
+    
+    TC->O(K*N)
+    SC->O(K*N)
