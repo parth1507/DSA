@@ -1,0 +1,35 @@
+Example 1:
+
+Input: pairs = [[1,2],[2,3],[3,4]]
+Output: 2
+Explanation: The longest chain is [1,2] -> [3,4].
+
+Example 2:
+
+Input: pairs = [[1,2],[7,8],[4,5]]
+Output: 3
+Explanation: The longest chain is [1,2] -> [4,5] -> [7,8]
+
+Code:-
+
+ int findLongestChain(vector<vector<int>>& pairs) {
+    int n=pairs.size();
+    if(n==1) return 1;
+    sort(pairs.begin(),pairs.end());
+    vector<int> dp(n+1,1);
+    int mx=0;
+    for(int i=1;i<n;i++){
+        for(int j=0;j<i;j++){
+            if(pairs[j][1] < pairs[i][0] && dp[i]<=dp[j]){
+                dp[i]=dp[j]+1;
+            }
+        }     
+        if(mx<dp[i]){
+            mx=dp[i];
+        }
+    }
+    return mx;
+    }
+    
+    TC->O(n^2)
+    SC->O(n)
