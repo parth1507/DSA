@@ -40,5 +40,5 @@ int maxSquare(int n, int m, vector<vector<int>> mat){
         return ans;
     }
   TC->O(m*n)
-  SC->O(m*n)
+  SC->O(m*n) or O(1) (Doubt);
   
