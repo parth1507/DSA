@@ -1,0 +1,71 @@
+Example 1:
+
+Input  : 
+arr[] = {3, 5, 10, 15, 17, 12, 9}
+K = 4
+Output : 
+62
+Explanation :
+Then disjoint pairs with difference less
+than K are, (3, 5), (10, 12), (15, 17)
+max sum which we can get is 
+3 + 5 + 10 + 12 + 15 + 17 = 62
+Note that an alternate way to form 
+disjoint pairs is,(3, 5), (9, 12), (15, 17)
+but this pairing produces less sum.
+
+Code:-
+Method 1:-
+int maxSumPairWithDifferenceLessThanK(int arr[], int N, int K)
+    {
+        // Your code goes here   
+        sort(arr,arr+N,greater<int>());
+        int i=0;
+        int sum=0;
+        while(i<N-1){
+            int x=abs(arr[i]-arr[i+1]);
+            if(x<K){
+                sum+=arr[i];
+                sum+=arr[i+1];
+                i=i+2;
+            }
+            else i++;
+        }
+        return sum;
+    }
+    
+    TC->O(NlogN)
+    SC->O(1)
+    
+    
+    
+    Method 2:->(Dynamic Programming)
+    
+    Code:-
+    int maxSumPairWithDifferenceLessThanK(int arr[], int N, int K)
+    {
+        // Your code goes here
+        sort(arr,arr+N);
+        int dp[N]={0};
+    
+        if(arr[1]-arr[0]<K){
+            dp[1]=arr[1]+arr[0];
+        }
+        else{
+            dp[1]=dp[0];
+        }
+        for(int i=2;i<N;i++){
+            if(abs(arr[i]-arr[i-1])<K){
+                dp[i]=max(dp[i-1],dp[i-2]+arr[i-1]+arr[i]);
+            }
+            else{
+                dp[i]=dp[i-1];
+            }
+        }
+        return dp[N-1];
+    }
+    
+    TC->O(NlogN)
+    SC->O(N)
+    
+    
