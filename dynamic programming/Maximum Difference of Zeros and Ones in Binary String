@@ -1,0 +1,31 @@
+Example 1:
+
+Input : S = "11000010001" 
+Output : 6 
+Explanatio: From index 2 to index 9, 
+there are 7 0s and 1 1s, so number 
+of 0s - number of 1s is 6. 
+
+Example 2:
+
+Input: S = "111111"
+Output: -1
+Explanation: S contains 1s only 
+
+Code:-
+Using Kadane Alogorithm(COntinous sum subarray)
+
+	int maxSubstring(string S)
+	{
+	   int sum=0,maximum=-1;
+	   for(int i=0;i<S.length();i++){
+	       if (sum<0){
+	           sum=0;
+	       }
+	       if(S.at(i)=='0')
+	       sum++;
+	       else sum--;
+	       maximum=max(sum,maximum);
+	   }
+	   return maximum;
+	}
