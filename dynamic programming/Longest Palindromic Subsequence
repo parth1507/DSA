@@ -1,0 +1,34 @@
+Example 1:
+
+Input: s = "bbbab"
+Output: 4
+Explanation: One possible longest palindromic subsequence is "bbbb".
+Example 2:
+
+Input: s = "cbbd"
+Output: 2
+Explanation: One possible longest palindromic subsequence is "bb".
+
+Method 1-> DP(Tabluation Method)
+ int longestPalindromeSubseq(string s) {
+        string a = s;
+        reverse(a.begin(),a.end());
+        int m=s.size();
+        int n=a.size();
+        int t[m+1][n+1];
+        for(int i=0;i<m+1;i++)
+            t[i][0]=0;
+        for(int j=0;j<n+1;j++)
+            t[0][j]=0;
+        for(int i=1;i<m+1;i++) {
+            for(int j=1;j<n+1;j++) {
+                if(s[i-1]==a[j-1])
+                    t[i][j]=1+t[i-1][j-1];
+                else
+                    t[i][j]=max(t[i][j-1],t[i-1][j]);
+            }
+        }
+        return t[m][n];
+    }
+    TC->O(n*m)
+    SC->O(n*m)
