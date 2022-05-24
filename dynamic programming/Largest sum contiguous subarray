@@ -43,3 +43,18 @@ long long maxSubarraySum(int arr[], int n){
     TC->O(N)
     SC->O(1)
    
+Method 2->DP
+ int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int dp[n];
+        memset(dp, 0, sizeof(dp));
+        int maxi = dp[0]=nums[0];
+        for(int i=1; i<n; i++){
+       dp[i] = max(nums[i],nums[i]+dp[i-1]);
+      maxi = max(dp[i],maxi);
+}
+  return maxi;
+  }
+  
+ TC->O(N)
+ SC->O(N)
