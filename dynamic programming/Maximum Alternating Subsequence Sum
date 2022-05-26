@@ -1,0 +1,56 @@
+Example 1:
+
+Input: nums = [4,2,5,3]
+Output: 7
+Explanation: It is optimal to choose the subsequence [4,2,5] with alternating sum (4 + 5) - 2 = 7.
+Example 2:
+
+Input: nums = [5,6,7,8]
+Output: 8
+Explanation: It is optimal to choose the subsequence [8] with alternating sum 8.
+Example 3:
+
+Input: nums = [6,2,1,2,4,5]
+Output: 10
+Explanation: It is optimal to choose the subsequence [6,1,5] with alternating sum (6 + 5) - 1 = 10.
+
+Method 1-> dp+memoization
+vector<int> a;
+    int n;
+    ll dp[100000][2];
+    ll solve(int pos,int flag){
+        if(pos==n)return 0;
+        else if(dp[pos][flag]!=-1)return dp[pos][flag];
+        ll ans=0;
+        if(flag==0){
+            ans=max(solve(pos+1,1)+a[pos],solve(pos+1,0));
+        }
+        else if(flag==1){
+            ans=max(solve(pos+1,0)-a[pos],solve(pos+1,1));
+        }
+        return dp[pos][flag]=ans;
+    }
+    long long maxAlternatingSum(vector<int>& nums) {
+        a=nums;
+        n=nums.size();
+        memset(dp,-1,sizeof dp);
+        return solve(0,0);
+    }
+    
+    TC->O(N)
+    SC->O(N)
+   
+Method 2->
+long long maxAlternatingSum(vector<int>& nums) {
+        int n=nums.size();
+        long long evensum=nums[0];
+        long long oddsum=0;
+        
+        for(int i=1;i<n;i++){
+            evensum=max(evensum,oddsum+nums[i]);
+            oddsum=max(oddsum,evensum-nums[i]);
+        }
+        return evensum;
+    }
+TC->O(n)
+SC->O(1)
