@@ -1,0 +1,13 @@
+Method 1-> Greedy
+int minimumDays(int S, int N, int M){
+        // code here
+        int x=S/7;
+        int y=S-x;
+        int sm=S*M;
+        int days=sm%N==0?sm/N:sm/N+1;
+        if(days<=y) return days;
+        else return -1;
+    }
+    
+ TC-> O(1)
+ SC->O(1)
