@@ -1,0 +1,23 @@
+Method 1-> greedy approach
+
+ int largestSumAfterKNegations(vector<int>& nums, int k) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        long long int sum=0;
+        
+        for(int i=0;i<n;i++){
+            if(nums[i]<=0 && k>0){
+                nums[i]=-nums[i];
+                k--;
+            }
+        }
+        for(int i=0;i<n;i++){
+            sum+=nums[i];
+        }
+        int x= *min_element(nums.begin(),nums.end());
+        if(k%2!=0) sum-=2*x;
+        
+        return sum;
+    }
+   TC-> O(nlogn)+O(2n)
+   SC->O(1)
