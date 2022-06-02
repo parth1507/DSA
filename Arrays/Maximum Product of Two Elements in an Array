@@ -1,0 +1,35 @@
+Method 1-> priority queue
+ int maxProduct(vector<int>& nums) {
+        priority_queue<int>pq;
+        
+        for(int i=0;i<nums.size();i++){
+            pq.push(nums[i]);
+        }
+        int n1=pq.top();
+        pq.pop();
+        int n2=pq.top();
+        
+        return (n1-1)*(n2-1);
+    }   
+ TC->O(nlogn)
+ SC->O(n)
+ 
+ Method 2-> 
+ int maxProduct(vector<int>& nums) {
+        int first = INT_MIN, second = INT_MIN;
+        for(int i=0; i<nums.size(); i++)
+        {
+            if(first < nums[i])
+            {
+                second = first;
+                first = nums[i];
+            }
+            else if(second < nums[i])
+                second = nums[i];
+        }
+        return (first-1)*(second-1);
+    }
+  TC->O(n)
+  SC->O(1)
+ 
+    
