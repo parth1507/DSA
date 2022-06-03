@@ -1,0 +1,32 @@
+Method 1-> Two pointers approach
+ int maxArea(vector<int>& height) {
+        int n=height.size();
+        int i=0;
+        int j=n-1;
+        int ans=0;
+        while(i<=j){
+            int area=min(height[i],height[j])*(j-i);
+            ans=max(area,ans);
+            if(height[i]<=height[j]) i++;
+            else j--;
+        }
+        return ans;
+    }
+  
+  TC->O(n)
+  SC->O(1)
+  
+  Method 2-> Naive approach
+  int maxArea(int A[], int len)
+{
+    int area = 0;
+    for (int i = 0; i < len; i++) {
+        for (int j = i + 1; j < len; j++) {
+            // Calculating the max area
+            area = max(area, min(A[j], A[i]) * (j - i));
+        }
+    }
+    return area;
+}
+TC->O(n^2)
+SC->O(1)
