@@ -1,0 +1,69 @@
+Method 1->naive approach
+
+void findFourElements(int A[], int n, int X)
+{
+     
+// Fix the first element and find other three
+for (int i = 0; i < n - 3; i++)
+{
+    // Fix the second element and find other two
+    for (int j = i + 1; j < n - 2; j++)
+    {
+         
+        // Fix the third element and find the fourth
+        for (int k = j + 1; k < n - 1; k++)
+        {
+            // find the fourth
+            for (int l = k + 1; l < n; l++)
+            if (A[i] + A[j] + A[k] + A[l] == X)
+                cout << A[i] <<", " << A[j]
+                     << ", " << A[k] << ", " << A[l];
+        }
+    }
+}
+TC->O(N^4)
+SC->O(1)
+
+Method 2-> using two pointer
+
+ vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+    
+    vector<vector<int>> ans;
+    
+    sort(nums.begin(), nums.end());
+    
+    for(int i=0; i<n-3; i++){
+        int a = nums[i];
+        for(int j= i+1; j<n-2; j++){
+            int b = nums[j];
+            int rem = target - a - b;
+            
+            int k =j+1;
+            int l = n-1;
+            
+            while(k<l){
+                int c = nums[k],
+                    d = nums[l];
+                int sum = c+d;
+                
+                if(sum<rem)k++;
+                else if(sum>rem)l--;
+                else{
+                    
+                    ans.push_back({a,b,c,d});
+                    while(k<n && nums[k]==c)k++;
+                    while(l>j && nums[j] == d)l--;
+                }
+            }
+            
+            while(j+1<n && nums[j+1]==b)j++;
+        }
+        while(i+1<n && nums[i+1]==a)i++;
+    }
+    
+    return ans;
+    
+    }
+    TC->O(N^3)
+    SC->O(1)
