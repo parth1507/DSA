@@ -1,0 +1,25 @@
+Method 1->naive approach
+int singleDigit(long long N)
+    {
+        // Write Your Code here
+        long long sum=0;
+        while(N>9){
+            while(N){
+                sum+=(N%10);
+                N/=10;
+            }
+            N=sum;
+            sum=0;
+        }
+        return N;
+    }
+    TC->O(logn)
+    SC->O(1)
+    
+ Method 2->
+ int addDigits(int num) {
+        if(num==0) return 0;
+        return num%9==0 ?9:num%9;
+    }
+ TC->O(1)
+ SC->O(1)
