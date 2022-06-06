@@ -1,0 +1,36 @@
+Method 1-> greedy approach
+ int minimumCostOfBreaking(vector<int> X, vector<int> Y, int M, int N){
+        //Write your code here
+        sort(X.begin(),X.end(),greater<int>());
+        sort(Y.begin(),Y.end(),greater<int>());
+        
+        int vertical_count=1;
+        int horizontal_count=1;
+        
+        int ans=0;
+        int i=0,j=0;
+        
+        while(i<M && j<N){
+            if(X[i]>Y[j]){
+                ans+=(X[i]*vertical_count);
+                horizontal_count++;
+                i++;
+            }
+            else{
+                ans+=(Y[j]*horizontal_count);
+                vertical_count++;
+                j++;
+            }
+        }
+        while(i<M){
+             ans+=(X[i]*vertical_count);
+                i++;
+        }
+         while(j<N){
+             ans+=(Y[j]*horizontal_count);
+                j++;
+        }
+        return ans;
+    }
+    TC->O(Nlogn+Mlogm)
+    SC->O(1)
