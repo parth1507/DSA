@@ -1,0 +1,16 @@
+Method 1->
+int search(int arr[], int n, int x, int k)
+{
+    // Complete the function
+    int index=0;
+    while(index<n){
+        if(arr[index]==x) return index;
+        
+        int steps=abs(arr[index]-x)/k;
+        index=index+max(1,steps);
+    }
+    return -1;
+}    	
+
+TC->O(n)
+SC->O(1)
