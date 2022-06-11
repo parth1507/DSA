@@ -1,0 +1,91 @@
+Method 1-> Brute force
+void findMajority(int arr[], int n)
+{
+    int maxCount = 0;
+    int index = -1; // sentinels
+    for (int i = 0; i < n; i++) {
+        int count = 0;
+        for (int j = 0; j < n; j++) {
+            if (arr[i] == arr[j])
+                count++;
+        }
+ 
+        // update maxCount if count of
+        // current element is greater
+        if (count > maxCount) {
+            maxCount = count;
+            index = i;
+        }
+    }
+ 
+    // if maxCount is greater than n/2
+    // return the corresponding element
+    if (maxCount > n / 2)
+        cout << arr[index] << endl;
+ 
+    else
+        cout << "No Majority Element" << endl;
+}
+ 
+ TC->O(n^2)
+ SC->O(n)
+ 
+ Method 2->using hashmap
+  int majorityElement(int a[], int size)
+    {
+    int count=0;    
+      unordered_map<int,int> m;
+      for(int i=0;i<size;i++){
+          m[a[i]]++;
+      }
+      for(auto i:m){
+          if(i.second>size/2){
+              count=1;
+              return i.first;
+          }
+      }
+      return -1;
+    }
+   TC->O(n)
+   SC->O(n)
+   
+ Method 3->Using sorting
+ int majorityElement(int a[], int size)
+    {
+      if(size == 1)
+           return a[0];
+       sort(a, a + size);
+       int count = 0;
+       int maj = size / 2, max_count = 0;
+       for(int i = 0; i < size - 1; i++)
+       {
+           if(a[i] == a[i+1])
+           {
+               count++;
+           }
+           else{
+               count = 0;
+           }
+           max_count = max(max_count, count);
+           if(max_count >= maj)
+               return a[i];
+       }
+       return -1;   
+    }
+   TC->O(Nlogn)
+   SC->O(1)
+   
+ Method 4-> Moore algorithm
+  int majorityElement(vector<int>& nums) {
+        int count=0;
+         int element=0;
+        
+        for(int i=0;i<nums.size();i++){
+            if(count==0){
+                element=nums[i];
+            }
+            if(element==nums[i]) count++;
+            else count--;
+        }
+        return element;
+    }
