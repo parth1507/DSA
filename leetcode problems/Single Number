@@ -1,0 +1,25 @@
+Method 1-> XOR operation
+int singleNumber(vector<int>& nums) {
+        int n=nums.size();
+        int result=0;
+        
+        for(int i=0;i<n;i++){
+            result ^=nums[i];
+        }
+        return result;
+    }
+    TC->O(n)
+    SC->O(1)
+    
+  Method 2->using unordered map
+   int singleNumber(vector<int>& nums) { 
+       unordered_map<int,int> a;
+	   for(auto x: nums)
+		   a[x]++;
+	   for(auto z:a)
+		   if(z.second==1)
+			   return z.first;
+	   return -1;
+    }
+    TC->O(n)
+    SC->O(n)
