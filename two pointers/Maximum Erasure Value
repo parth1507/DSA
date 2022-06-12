@@ -1,0 +1,19 @@
+Method 1->using sliding window
+int maximumUniqueSubarray(vector<int>& nums) {
+        int ans=0,current=0;
+        unordered_set<int> s;
+        
+        for(int i=0,j=0;j<nums.size();j++){
+            while(s.find(nums[j])!=s.end()){
+                s.erase(nums[i]);
+                current-=nums[i];
+                i++;
+            }
+            s.insert(nums[j]);
+            current+=nums[j];
+            ans=max(ans,current);
+        }
+        return ans;
+    }
+    TC->O(n)
+    SC->O(n)
