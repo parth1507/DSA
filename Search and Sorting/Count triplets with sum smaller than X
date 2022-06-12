@@ -1,0 +1,26 @@
+Method 1->Brute force
+TC->O(n^3)
+SC->O(1)
+
+Method 2->Using sorting
+	long long countTriplets(long long arr[], int n, long long sum)
+	{
+	    // Your code goes here
+	    long long c=0;
+	    sort(arr,arr+n);
+	   for(int k=0;k<n-2;k++){
+	       int i=k+1;
+	       int j=n-1;
+	       while(i<j){
+	           long long s=arr[k]+arr[i]+arr[j];
+	           if(s<sum){
+	               c+=(j-i);
+	               i++;
+	           }
+	           else j--;
+	       }
+	   }
+	   return c;
+	}
+  TC->O(n^2)
+  SC->O(1)
