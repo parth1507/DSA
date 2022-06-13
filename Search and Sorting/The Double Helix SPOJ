@@ -47,5 +47,5 @@ int main()
     
     return 0;
 }
-TC->O(n)
+TC->O(n=m)
 SC->O(1)
