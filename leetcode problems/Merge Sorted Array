@@ -1,0 +1,56 @@
+Method 1->
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i=m-1,j=n-1,k=m+n-1;
+        while(i>=0 && j>=0){
+            if(nums1[i]>nums2[j]){
+                nums1[k]=nums1[i];
+                i--;
+                k--;
+            }
+            else{
+                nums1[k]=nums2[j];
+                j--;
+                k--;
+            }
+        }
+        while(i>=0){
+            nums1[k--]=nums1[i--];
+        }
+        while(j>=0){
+            nums1[k--]=nums2[j--];
+        }
+    }
+    TC->O(m+n)
+    SC->O(1)
+    
+    Method 2->
+    void mergeArrays(int arr1[], int arr2[], int n1,
+                             int n2, int arr3[])
+{
+    int i = 0, j = 0, k = 0;
+ 
+    // Traverse both array
+    while (i<n1 && j <n2)
+    {
+        // Check if current element of first
+        // array is smaller than current element
+        // of second array. If yes, store first
+        // array element and increment first array
+        // index. Otherwise do same with second array
+        if (arr1[i] < arr2[j])
+            arr3[k++] = arr1[i++];
+        else
+            arr3[k++] = arr2[j++];
+    }
+ 
+    // Store remaining elements of first array
+    while (i < n1)
+        arr3[k++] = arr1[i++];
+ 
+    // Store remaining elements of second array
+    while (j < n2)
+        arr3[k++] = arr2[j++];
+}
+TC->O(n1+n2)
+SC->O(n1+n2)
+    
