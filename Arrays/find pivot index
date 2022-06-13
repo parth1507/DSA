@@ -1,0 +1,45 @@
+Method 1->
+ int pivotIndex(vector<int>& nums) {
+        if(nums.size()==1) return 0;
+        
+        int sum=0,lsum=0,rsum=0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+        }
+        rsum=sum;
+        for(int i=0;i<nums.size();i++){
+            rsum-=nums[i];
+            if(rsum==lsum){
+                return i;
+                break;
+            }
+            lsum+=nums[i];
+        }
+        return -1;
+    }
+  TC->O(n)
+  SC->O(1)
+  
+  Method 1-> naive approach
+  int equilibrium(int arr[], int n)
+{
+    int i, j;
+    int leftsum, rightsum;
+    for (i = 0; i < n; ++i)
+    {    
+        leftsum = 0;
+        for (j = 0; j < i; j++)
+            leftsum += arr[j];
+
+        rightsum = 0;
+        for (j = i + 1; j < n; j++)
+            rightsum += arr[j];
+ 
+        are same, then we are done */
+        if (leftsum == rightsum)
+            return i;
+    }
+    return -1;
+}
+TC->O(N^2)
+SC->O(1)
