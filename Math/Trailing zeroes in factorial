@@ -1,0 +1,14 @@
+Method 1->
+ int trailingZeroes(int N)
+    {
+          int k=5;int count=0;
+       while(N/k>0)
+       {       
+           count+=(N/k);
+           k=k*5;
+       } 
+      return count; 
+   }
+ 
+ TC->O(logn)
+ SC->O(1)
