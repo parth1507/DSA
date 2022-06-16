@@ -1,0 +1,35 @@
+Method 1->using upper bound and prefix sum
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int n;
+	cin>>n;
+	int a[n];
+
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+	sort(a,a+n);
+	int pre_sum[n+1];
+	pre_sum[0]=0;
+
+	for(int i=1;i<n+1;i++){
+		pre_sum[i]=pre_sum[i-1]+a[i-1];
+	}
+	int q;
+	cin>>q;
+	while(q--){
+		int x;
+		cin>>x;
+
+		int ind=upper_bound(a,a+n,x)-a;
+		cout<<ind<<" "<<pre_sum[ind]<<endl;
+	}
+	return 0;
+}
+
+TC->O(nlogn)
+SC->O(n+1)
