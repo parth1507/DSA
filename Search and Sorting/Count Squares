@@ -1,0 +1,36 @@
+Method 1-> Binary Search
+int countSquares(int N) {
+        // code here
+        int low=0;
+        int high=N-1;
+        long long int ans=-1;
+        
+        while(low<=high){
+        long long int mid=(low+high)/2;
+        long long int sqr=mid*mid;
+            
+            if(sqr<N){
+                ans=mid;
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+    
+  TC->O(logn)
+  SC->O(1)
+  
+ Method 2-> naive approach
+ int countSquares(int N) {
+        // code here
+        int i=1;
+        while(i*i<N){
+            i++;
+        }
+        return i-1;
+    }
+    TC->O(n)
+    SC->O(1)
