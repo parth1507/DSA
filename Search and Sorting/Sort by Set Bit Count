@@ -1,0 +1,10 @@
+Method 1->
+ static bool comp(int a, int b){
+       return __builtin_popcountll(a)>__builtin_popcountll(b);
+   }
+   void sortBySetBitCount(int arr[], int n)
+   {
+       stable_sort(arr,arr+n,comp);
+   }
+   TC->O(nlogn)
+   SC->O(1)
