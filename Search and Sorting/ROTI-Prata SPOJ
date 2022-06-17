@@ -1,0 +1,48 @@
+Method 1-> Binary search
+#include<bits/stdc++.h>
+
+using namespace std;
+
+bool solve(int a[],int n,int par,int mid){
+    int times=0;
+    int paratha=0;
+    for(int i=0;i<n;i++){
+        times=a[i];
+        int j=2;
+        while(times<=mid){
+            paratha++;
+            times=times+(a[i]*j);
+            j++;
+        }
+        if(paratha>=par) return true;
+    }
+    return false;
+}
+
+int main(){
+    int par;
+    cin>>par;
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    int low=0;
+    int high=1e8;
+    int ans=0;
+    while(low<=high){
+        int mid=(low+high)/2;
+        if(solve(a,n,par,mid)){
+            ans=mid;
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+TC->O(Nlogn)
+SC->O(1)
