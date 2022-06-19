@@ -42,3 +42,27 @@ bool isPossible(vector<int>& weights, int days,int mid){
     }
     TC->O(nlogn)
     SC->O(1)
+
+Method 2->Dp approach
+int shipWithinDays(vector<int>& weights, int d) {
+        int n= weights.size();
+        vector<vector<int>> dp(n+1, vector<int>(d+1,1e7+1));
+        vector <int> pre(n+1,0);
+        for(int i=1;i<=n;i++){
+          pre[i] =  pre[i-1]+weights[i-1];
+            dp[i][1] = pre[i];
+        } 
+        for(int j=1;j<=d;j++) dp[1][j] = weights[0];
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=d;j++){
+                if(j>i) continue;
+                for(int k=i-1;k>0;k--){
+                    dp[i][j] =  min(dp[i][j],max(dp[k][j-1],pre[i]-pre[k]));
+                }
+            }
+        }
+        
+        return dp[n][d];
+    }
+    TC->O(N*N*days)
+    SC->O(N * D)
