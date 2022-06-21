@@ -1,0 +1,25 @@
+Method 1->Linear Search
+TC->O(n)
+SC-O(1)
+
+Method 2-> Binary Search
+int peakIndexInMountainArray(vector<int>& arr) {
+        int s=0;
+        int e=arr.size()-1;
+        int mid = s+(e-s)/2;
+        int ans=mid;
+        while(s<=e){
+            if(arr[mid]>arr[mid+1]){
+                e=mid-1;
+                ans=mid;
+                }
+            else if(arr[mid]<arr[mid+1]){
+                s=mid+1;
+                ans=mid;
+                }
+            mid = s+(e-s)/2;
+        }
+        return mid;
+    }
+ TC->O(logn)
+ Sc->O(1)
