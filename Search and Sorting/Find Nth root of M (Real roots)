@@ -23,3 +23,31 @@ int NthRoot(int n, int m)
   
   TC->O(nlogm)
   SC->O(1);
+
+Method 3-> using binary search
+long long int binarySearch(int n){
+        int l=0;
+        int h=n;
+       long long int mid=l+(h-l)/2;
+        int ans=-1;
+        
+        while(l<=h){
+           long long int square=mid*mid;
+            if(square==n) return mid;
+            
+            if(square<n){
+                ans=mid;
+                l=mid+1;
+            }
+            else{
+                h=mid-1;
+            }
+            mid=l+(h-l)/2;
+        }
+       return mid-1;
+    }
+    int mySqrt(int x) {
+        return binarySearch(x);
+    }
+    TC->O(nlogn)
+    SC->O(1)
