@@ -1,0 +1,23 @@
+Method 1-> Linear Search
+TC->O(n)
+SC->O(1)
+
+Method 2-> Binary search
+int pivot(int arr[],int n){
+  int s=0;
+  int e=arr.size()-1;
+  int mid=s+(e-s)/2;
+  
+  while(s<=e){
+   if(arr[mid]>=arr[0]){
+     s=mid+1;
+   }
+   else{
+    e=mid;
+   }
+  }
+  return s;
+}
+
+TC->O(logn)
+SC->O(1)
