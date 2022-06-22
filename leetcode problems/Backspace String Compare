@@ -1,0 +1,58 @@
+Method 1-> using stack
+ bool backspaceCompare(string s, string t) {
+        stack<char> stk1;
+        for(int i=0; i<s.length(); i++){
+            if(s[i] == '#'){
+                if(!stk1.empty())
+                    stk1.pop();
+            }
+            else{
+                stk1.push(s[i]);
+            }
+        }
+        
+        stack<char> stk2;
+        for(int i=0; i<t.length(); i++){
+            if(t[i] == '#'){
+                if(!stk2.empty())
+                    stk2.pop();
+            }
+            else{
+                stk2.push(t[i]);
+            }
+        }
+        
+        if(stk1.size() != stk2.size())
+            return false;
+        
+        while(!stk1.empty() && !stk2.empty()){
+            if(stk1.top() != stk2.top())
+                return false;
+            stk1.pop();
+            stk2.pop();
+        }
+        
+        return true;
+    }
+    TC->O(n)
+    SC->O(n)
+    
+   Method 2-> 
+   bool backspaceCompare(string s, string t) {
+        int n = s.length(), m = t.length();
+        string s1 = "", s2 = "";
+		
+        for(int i = 0; i<n; i++){
+            if(s[i] != '#') s1 += s[i];
+            else if( s1.length() != 0) s1.pop_back();
+        }
+        
+        for(int i = 0; i<m; i++){
+            if(t[i] != '#') s2 += t[i];
+            else if( s2.length() != 0) s2.pop_back();
+        }
+        if(s1 == s2) return true;
+        return false;
+    }
+    TC->O(n)
+    SC->O(1)
