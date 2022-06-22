@@ -1,0 +1,26 @@
+Method 1->Linear Search
+TC->O(n)
+SC->O(1)
+
+Method 2-> Binary search
+int findMin(vector<int>& nums) {
+        int low=0;
+       int high=nums.size()-1;
+    
+        while(low<high){
+            int mid=low+(high-low)/2;
+            
+            if(nums[mid]>nums[high]){
+                low=mid+1;
+            }
+            else if(nums[mid]<nums[high]){
+                high=mid;
+            }
+            else{
+                high--;
+            }
+        }
+        return nums[low];
+    }
+  TC->O(logn)
+  SC->O(1)
