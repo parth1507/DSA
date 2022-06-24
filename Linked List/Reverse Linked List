@@ -1,0 +1,43 @@
+Method 1->iterative method
+ListNode* reverseList(ListNode* head) {
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* forward=NULL;
+        
+        while(curr!=NULL){
+            forward=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forward;
+        }
+        return prev;
+    }
+  TC->O(n)
+  SC->O(1)
+  
+  Method 2->recursive method
+  void solve(Node* &head,Node* &curr,Node* &prev){
+    if(curr==NULL){
+        head=prev;
+        return;
+    }
+    Node* forward=curr->next;
+    solve(head,forward,curr);
+    curr->next=prev;
+}
+
+Node* reverseLinkedList(Node *head)
+{
+    Node* curr=head;
+    Node* prev=NULL;
+    solve(head,curr,prev);
+    return head;
+    // Write your code here
+}
+TC->O(n)
+SC->O(n)
+
+Method 3-> recursive solution
