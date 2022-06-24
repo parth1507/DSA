@@ -41,3 +41,20 @@ TC->O(n)
 SC->O(n)
 
 Method 3-> recursive solution
+Node* reverse1(Node* &head){
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    Node* chotahead=reverse1(head->next);
+    head->next->next=head;
+    head->next=NULL;
+    
+    return chotahead;
+}
+Node* reverseLinkedList(Node *head)
+{
+    // Write your code here
+    return reverse1(head);
+}
+TC->O(n)
+SC->O(n)
