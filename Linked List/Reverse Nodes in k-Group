@@ -1,0 +1,42 @@
+Method 1->recursive method
+
+ int lengthOfLinkedList(ListNode* &head){
+        ListNode* temp=head;
+        int len=0;
+        while(temp!=NULL){
+            temp=temp->next;
+            len++;
+        }
+        return len;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k,int length){
+        if(length<k || head==NULL){
+            return head;
+        }
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* forward=NULL;
+        int count=0;
+        
+        while(curr!=NULL && count<k){
+            forward=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forward;
+            count++;
+        }
+        if(forward!=NULL){
+            head->next= reverseKGroup(forward,k,length-k);
+        }
+        return prev;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        int length=lengthOfLinkedList(head);
+        return reverseKGroup(head,k,length);
+    }
+   
+   TC->O(n)
+   SC->O(n)
+   
+   Method 2->iterative method
+   
