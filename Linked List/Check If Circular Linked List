@@ -1,0 +1,44 @@
+Method 1-> iterative method
+bool isCircular(Node *head)
+{
+   // Your code here
+   if(head==NULL) return 1;
+   
+   Node* temp=head->next;
+   while(temp!=NULL && temp!=head){
+       temp=temp->next;
+   }
+   if(temp ==NULL) return 0;
+   if(temp==head) return 1;
+}
+TC->O(n)
+SC->O(1)
+
+Method 2-> iterative method
+bool isCircular(Node* head){
+    if (head == NULL) {
+        return true;
+    }
+
+    if (head -> next == NULL) {
+        return false;
+    }
+
+    Node * slow = head, * fast = head;
+    
+    while (fast != NULL && fast -> next != NULL) {
+        slow = slow -> next;
+        fast = fast -> next -> next;
+        if (slow == fast) {
+            break;
+        }
+
+    }
+
+    if (slow == fast && slow == head) {
+        return true;
+    }
+    return false;
+}
+TC->O(n)
+SC->O(1)
