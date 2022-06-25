@@ -38,4 +38,22 @@ bool detectLoop(Node* head)
     TC->O(n)
     SC->O(n)
   
-  
+  Method 3->hashmap
+   bool hasCycle(ListNode *head) {
+        if(head==NULL){
+            return false;
+        }
+        unordered_map<ListNode*,bool>visited;
+        ListNode* temp=head;
+        while(temp!=NULL){
+            if(visited[temp]==true){
+                return true;
+            }
+            visited[temp]=true;
+            temp=temp->next;
+            
+        }
+        return false;
+    }
+    TC->O(n)
+    SC->O(n)
