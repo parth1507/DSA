@@ -39,4 +39,33 @@ Method 1->recursive method
    SC->O(n)
    
    Method 2->iterative method
-   
+   ListNode* reverseKGroup(ListNode* head, int k) {
+        if(k == 1 || !head -> next) return head;
+        
+        ListNode* pre = NULL, *curr = head, *nxt, *temp = head;
+        
+        int n = 0;
+        while(temp){
+            n++;
+            temp = temp -> next;
+        }
+        
+        for(int i=0; i<n/k; i++){
+            ListNode *first = pre, *newEnd = curr;
+            
+            for(int i=0; i<k; i++){
+                nxt = curr -> next;
+                curr -> next = pre;
+                pre = curr;
+                curr = nxt;
+            }
+            
+            first ? first -> next = pre : head = pre;
+            newEnd -> next = curr;
+            pre = newEnd;  
+        }
+        
+        return head;
+    }
+    TC->O(n)
+    SC->O(1)
