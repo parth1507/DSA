@@ -1,0 +1,30 @@
+Method 1->using hashmap
+
+ Node * removeDuplicates( Node *head) 
+    {
+     // your code goes here
+     if(head==NULL) return NULL;
+     if(head->next==NULL) return head;
+     
+     map<int,int> s;
+     Node* curr=head;
+     s[curr->data]=1;
+     Node* prev=curr;
+     curr=curr->next;
+     
+     while(curr!=NULL){
+         if(s[curr->data]){
+             prev->next=curr->next;
+             delete(curr);
+         }
+         else{
+             s[curr->data]=1;
+             prev=curr;
+         }
+         curr=curr->next;
+     }
+     return head;
+    }
+   
+   TC->O(n)
+   SC->O(n)
