@@ -28,3 +28,32 @@ Method 1->using hashmap
    
    TC->O(n)
    SC->O(n)
+
+Method 2-> using hashset
+Node * removeDuplicates( Node *head) 
+    {
+     // your code goes here
+     if(head==NULL) return NULL;
+     if(head->next==NULL) return head;
+     
+     unordered_set<int>s;
+      Node* curr=head;
+        Node* prev=curr;
+        curr=curr->next;
+        s.insert(prev->data);
+     
+     while(curr!=NULL){
+        if(s.find(curr->data)!=s.end()){
+        prev->next=curr->next;
+        delete(curr);
+        }
+        else{
+            s.insert(curr->data);
+            prev=curr;
+        }
+        curr=curr->next;
+      }
+      return head;
+    }
+   TC->O(n)
+   SC->O(1)
