@@ -1,0 +1,50 @@
+method 1->
+
+ Node *reverse(Node *head) {
+       Node *temp = head, *prev = NULL, *next;
+       while(temp != NULL) {
+           next = temp -> next;
+           temp -> next = prev;
+           prev = temp;
+           temp = next;
+       }
+       return prev;
+   }
+
+
+   struct Node* addTwoLists(struct Node* first, struct Node* second)
+   {
+       Node *p = first; Node *q = second;
+       p = reverse(p); q = reverse(q);
+       Node *head = NULL, *tail = NULL;
+       Node* newnode;
+       int carry = 0;
+       while(p != NULL || q != NULL) {
+           int sum=carry+(p?p->data:0)+(q?q->data:0);
+           carry = sum >= 10 ? 1 : 0;
+           newnode = new Node(sum % 10);
+           if(head == NULL) {
+               head = newnode;
+               tail = newnode;
+           }
+           else {
+               tail -> next = newnode;
+               tail = newnode;
+           }
+           if(p!=NULL) {
+               p = p -> next;
+           }
+           if(q!=NULL) {
+               q = q -> next;
+           }
+       }
+       if(carry > 0) {
+           newnode=new Node(carry);
+           tail->next=newnode;
+           tail=newnode;
+       }
+       head = reverse(head);
+       return head;
+   }
+   TC->O(n+m)
+   SC->O(n+m)
