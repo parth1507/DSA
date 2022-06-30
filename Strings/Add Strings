@@ -29,5 +29,5 @@ string addStrings(string num1, string num2) {
         reverse(ans.begin(),ans.end());
         return ans;
     }
-    TC->O(n+m)
-    SC->O(n+m)
+    TC->O(max(n,m))
+    SC->O(1)
