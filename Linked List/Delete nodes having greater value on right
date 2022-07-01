@@ -1,0 +1,38 @@
+Method 1-> naive approach
+TC->O(n^2)
+SC->O(1)
+
+Method 2-> optimized approach
+ Node *reverse(Node *head) {
+       Node *temp = head, *prev = NULL, *next;
+       while(temp != NULL) {
+           next = temp -> next;
+           temp -> next = prev;
+           prev = temp;
+           temp = next;
+       }
+       return prev;
+   }
+   
+   public:
+   Node *compute(Node *head)
+   {
+       head = reverse(head);
+       Node *temp = head, *tail = NULL;
+       int maxi = temp->data;
+       while(temp != NULL) {
+           if(temp -> data >= maxi) {
+               maxi = temp -> data;
+               tail = temp;
+               temp = temp -> next;
+           }
+           else {
+               tail -> next = temp -> next;
+               temp = tail -> next;
+           }
+       }
+       head = reverse(head);
+       return head;
+   }
+ TC->O(n)
+ SC->O(1)
