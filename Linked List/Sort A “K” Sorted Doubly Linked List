@@ -1,0 +1,33 @@
+Method 1-> using heaps
+
+Node *sortedDll(Node *head, int k)
+{
+   if(head==NULL) return NULL;
+    
+    priority_queue<int,vector<int>, greater<int>> pq;
+    Node* temp=head;
+    int cnt=0;
+    
+    while(temp!=NULL && cnt<=k){
+        pq.push(temp->data);
+        temp=temp->next;
+        cnt++;
+    }
+    Node* curr=head;
+    while(temp!=NULL){
+        curr->data=pq.top();
+        pq.pop();
+        pq.push(temp->data);
+        temp=temp->next;
+        curr=curr->next;
+    }
+    
+    while(!pq.empty()){
+        curr->data=pq.top();
+        pq.pop();
+        curr=curr->next;
+    }
+    return head;
+}
+TC->O(NlogK+1)
+SC->O(k+1)
