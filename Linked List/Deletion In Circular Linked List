@@ -1,0 +1,64 @@
+Method 1->
+
+Node* deleteNode(Node* head, int key) 
+{
+    if(!head){
+
+       return head;
+
+   }
+
+   
+
+   if(head->next==head && key==head->data){
+
+       return NULL;
+
+   }
+
+   
+
+   if(head->data==key){
+
+       Node *curr=head;
+
+       while(curr->next!=head){
+
+           curr=curr->next;
+
+       }
+
+       curr->next=head->next;
+
+       head=curr->next;
+
+       return head;
+
+   }
+
+   
+
+   Node *prev=head;
+
+   Node *curr=head->next;
+
+   while(curr!=head){
+
+       if(curr->data==key){
+
+           prev->next=curr->next;
+
+           curr=curr->next;
+
+       }
+
+       prev=prev->next;
+
+       curr=curr->next;
+
+   }
+
+   return head;
+}
+TC->O(n)
+SC->O(1)
