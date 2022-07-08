@@ -1,0 +1,23 @@
+Method 1->iterative solution
+
+Node* reverseDLL(Node * head)
+
+{
+    if(head==NULL && head->next==NULL) return head;
+    Node *curr=head;
+    Node *prev=NULL;
+    Node* temp;
+    
+    while(curr!=NULL){
+        temp=curr->next;
+        curr->next=prev;
+        curr->prev=temp;
+        prev=curr;
+        curr=temp;
+    }
+    return prev;
+}
+TC->O(n)
+SC->O(1)
+
+Method 2-> recursive solution
