@@ -1,0 +1,19 @@
+Method 1->
+ ListNode* insertionSortList(ListNode* head) {
+        ListNode* dummy=new ListNode(1000);
+        
+        while(head!=NULL){
+            ListNode* temp=dummy;
+            ListNode* next=head->next;
+            
+            while(temp->next && temp->next->val<head->val){
+                temp=temp->next;
+            }
+           head->next=temp->next;
+            temp->next=head;
+            head=next;
+        }
+        return dummy->next;
+    }
+  TC->O(n^2)  
+  SC->O(1)
