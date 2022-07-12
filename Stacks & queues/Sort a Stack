@@ -57,3 +57,40 @@ void sortStack(stack<int> &stack)
 }
 TC->O(N^2)
 SC->O(N)
+
+
+Method2-> iterative method
+void SortedStack :: sort()
+{
+   stack<int> temp;
+   
+   while(!s.empty()){
+       int tmp=s.top();
+       s.pop();
+       
+       while(!temp.empty() && temp.top()>tmp){
+           s.push(temp.top());
+           temp.pop();
+       }
+       temp.push(tmp);
+   }
+   return temp;
+}
+TC->O(N^2)
+SC->O(n)
+
+Method 3-> iterative method 2(using min heap)
+void SortedStack :: sort()
+{
+   priority_queue<int,vector<int>,greater<int>> pq;
+   while(!s.empty()){
+       pq.push(s.top());
+       s.pop();
+   }
+   while(!pq.empty()){
+       s.push(pq.top());
+       pq.pop();
+   }
+}
+TC->O(N)
+SC->O(N)
