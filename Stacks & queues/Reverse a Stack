@@ -1,0 +1,30 @@
+Method 1-> iterative method
+
+vector<int> Reverse(stack<int> St){
+        vector<int> ans;
+        
+        while(!St.empty()){
+            int num=St.top();
+            ans.push_back(num);
+            St.pop();
+        }
+        return ans;
+    }
+  TC->O(N)
+  SC->O(N)
+  
+  Method 2-> recursive method
+  vector<int> ans;
+    vector<int> Reverse(stack<int> St){
+       if(St.empty()){
+           return ans;
+       }    
+       int top=St.top();
+       ans.push_back(top);
+       St.pop();
+       Reverse(St);
+       
+      return ans;
+    }
+  TC->O(N)
+  SC->O(N)
