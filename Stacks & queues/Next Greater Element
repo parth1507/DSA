@@ -18,4 +18,26 @@ vector<long long> nextLargerElement(vector<long long> arr, int n){
   SC->O(1)
   
   Method 2-> optimized approach using stack
-  
+  vector<long long> nextLargerElement(vector<long long> arr, int n){
+        stack<long long> s;
+        vector<long long> ans;
+        for(int i=n-1;i>=0;i--){
+            long long curr=arr[i];
+            
+            while(!s.empty() && curr>=s.top()){
+                s.pop();
+            }
+            if(s.empty()){
+                ans.push_back(-1);
+            }
+            else{
+                ans.push_back(s.top());
+            }
+             s.push(curr);
+            
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+    TC->O(N)
+    SC->O(n)
