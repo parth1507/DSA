@@ -1,0 +1,21 @@
+Method 1-> brute force
+vector<long long> nextLargerElement(vector<long long> arr, int n){
+        for(int i=0;i<n;i++){
+            int j=0;
+            for(j=i+1;j<n;j++){
+                if(arr[j]>arr[i]){
+                    arr[i]=arr[j];
+                    break;
+                }
+            }
+            if(j==n){
+                arr[i]=-1;
+            }
+        }
+        return arr;
+    }
+  TC->O(N^2)
+  SC->O(1)
+  
+  Method 2-> optimized approach using stack
+  
