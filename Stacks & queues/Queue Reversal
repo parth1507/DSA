@@ -1,0 +1,33 @@
+Method 1-> using stack
+queue<int> rev(queue<int> q)
+{
+    stack<int>s;
+    while(!q.empty()){
+        s.push(q.front());
+        q.pop();
+    }
+    while(!s.empty()){
+        q.push(s.top());
+        s.pop();
+    }
+    return q;
+}
+TC->O(N)
+SC->O(N)
+
+Method 2-> recusion
+
+void Reversal(queue<int>& q){
+    if(q.empty()) return;
+    int val=q.front();
+    q.pop();
+    Reversal(q);
+    q.push(val);
+}
+queue<int> rev(queue<int> q)
+{
+   Reversal(q);
+   return q;
+}
+TC->O(N)
+SC->O(N)
