@@ -1,0 +1,42 @@
+Method 1->
+ int scoreOfParentheses(string s) {
+        stack<int> st;
+        int score=0;
+        
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='('){
+                st.push(score);
+                score=0;
+            }
+            else{
+                score=st.top()+max(2*score,1);
+                st.pop();
+            }
+        }
+        return score;
+    }
+   
+   TC->O(N)
+   SC->O(N)
+   
+   method 2->
+   int scoreOfParentheses(string s) {
+        int depth=0,res=0;
+        char prev='(';
+        
+        for(char ch:s){
+            if(ch=='('){
+                depth++;
+            }
+            else{
+                depth--;
+                if(prev=='('){
+                    res+=pow(2,depth);
+                }
+            }
+            prev=ch;
+        }
+        return res;
+    }
+  TC->O(N)
+  SC->O(1)
