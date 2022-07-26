@@ -1,0 +1,34 @@
+Method 1-> brute force
+ vector<int> findDuplicates(vector<int>& nums) {
+        unordered_set<int> s;
+        vector<int> ans;
+        
+        for(int i=0;i<nums.size();i++){
+            if(s.find(nums[i])!=s.end()){
+                ans.push_back(nums[i]);
+                s.insert(nums[i]);
+            }
+            else{
+                s.insert(nums[i]);
+            }
+        }
+        return ans;
+    }
+  TC->O(N)
+  SC->O(N)
+  
+  Method 2-> optimized approach
+  vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+        
+        for(int i=0;i<nums.size();i++){
+            int index=abs(nums[i])-1;
+            if(nums[index]<0){
+                ans.push_back(abs(nums[i]));
+            }
+            nums[index]= -nums[index];
+        }
+        return ans;
+    }
+  TC->O(n)
+  SC->O(1)
