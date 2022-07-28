@@ -39,3 +39,22 @@ int maxProfit(vector<int>& prices) {
     }
     TC->O(n)
     SC->O(1)
+    
+   Method 3-> better approach
+   int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<int> aux(n);
+        int maxprofit=0;
+        int ans=INT_MIN;
+        
+        for(int i=n-1;i>=0;i--){
+            ans=max(ans,prices[i]);
+            aux[i]=ans;
+        }
+        for(int i=0;i<n;i++){
+            maxprofit=max(maxprofit,(aux[i]-prices[i]));
+        }
+        return maxprofit;
+    }
+    TC->O(N)
+    SC->O(N)
