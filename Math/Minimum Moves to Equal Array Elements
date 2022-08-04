@@ -1,4 +1,6 @@
 Method 1->
+
+Approach->The idea is to think differently, increasing each element except one is equivalent to decreasing that element. In the end, we want to make them equal. So, consider decrementing each element to make it all equal. So, they will be equal to the minimum element. All we care about the steps count. SO, CALCULATE THE DIFFERENCE OF EACH ELEMENT WITH THE MINIMUM GUY
 int minMoves(vector<int>& nums) {
         int min=*min_element(nums.begin(),nums.end());
         int sum=0;
