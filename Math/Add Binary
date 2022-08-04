@@ -1,0 +1,25 @@
+Method 1->
+string addBinary(string a, string b) {
+        int n1=a.size();
+        int n2=b.size();
+        string res="";
+        int i=n1-1;
+        int j=n2-1;
+        int carry=0;
+        
+        while(i>=0 || j>=0){
+            int x,y;
+            x= i>=0?a[i--]-'0':0;
+            y= j>=0?b[j--]-'0':0;
+            int sum=x+y+carry;
+            res=to_string(sum%2)+res;
+            carry=sum/2;
+        }
+        if(carry>0){
+            res='1'+res;
+        }
+        return res;
+    }
+    
+  TC->O(n+m)
+  SC->O(1)
