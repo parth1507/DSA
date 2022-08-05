@@ -1,4 +1,8 @@
 method 1->
+
+approach=> 
+formula= res*26 + character number;
+
 int titleToNumber(string columnTitle) {
         int res=0;
         for(int i=0;i<columnTitle.size();i++){
