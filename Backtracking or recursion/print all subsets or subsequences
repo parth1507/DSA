@@ -1,0 +1,25 @@
+Method 1 -> recursion
+private:
+    void solve(vector<int> nums,vector<int> output, int i,vector<vector<int>> &ans){
+        //base case
+        if(i>=nums.size()){
+            ans.push_back(output);
+            return;
+        }
+        //exclude case
+        solve(nums,output,i+1,ans);
+        
+        //include case
+        output.push_back(nums[i]);
+        solve(nums,output,i+1,ans);
+    }
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> output;
+        int index=0;
+        solve(nums,output,index,ans);
+        return ans;
+    }
+  TC->O(2^n)
+  SC->O(n*2^n)
