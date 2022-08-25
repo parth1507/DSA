@@ -1,0 +1,31 @@
+Method 1-> recursion
+
+void longestPathLength(int n,int m,vector<vector<int>> &mat,int i,int j,int x,int y,int pathlength,int  &ans){
+    if(i<0 || j<0 || i>=n || j>=m || mat[i][j]==0) return ;
+    
+    //base case
+    if(i==x && j==y){
+       ans=max(pathlength,ans);
+        return;
+    }
+    
+    mat[i][j]=0;
+    
+    longestPathLength(n,m,mat,i+1,j,x,y,pathlength+1,ans);
+    longestPathLength(n,m,mat,i,j-1,x,y,pathlength+1,ans);
+    longestPathLength(n,m,mat,i-1,j,x,y,pathlength+1,ans);
+    longestPathLength(n,m,mat,i,j+1,x,y,pathlength+1,ans);
+    
+    mat[i][j]=1;
+}
+int longestPath(int n, int m, vector<vector<int>> &mat, int sx, int sy, int dx, int dy) {
+	int ans=-1;
+    if(mat[sx][sy]==0 || mat[dx][dy]==0){
+        return ans;
+    }
+    longestPathLength(n,m,mat,sx,sy,dx,dy,0,ans);
+    return ans;
+}
+
+TC->O(4^(n*m))
+SC->O(n*m)
