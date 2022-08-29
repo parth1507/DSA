@@ -1,0 +1,33 @@
+Method 1-> using backtracking
+
+void team(vector<int> &arr,vector<int> &list1,vector<int> &list2,int idx,int sum1,
+          int sum2, int &minDiff){
+    
+    //base case
+    if(idx==arr.size()){
+        minDiff=min(minDiff,abs(sum1-sum2));
+        return;
+    }
+    
+    if(list1.size()< (arr.size()+1)/2 ){
+        list1.push_back(arr[idx]);
+        team(arr,list1,list2,idx+1,sum1+arr[idx],sum2,minDiff);
+        list1.pop_back();
+    }
+    if(list2.size()< (arr.size()+1)/2) {
+        list2.push_back(arr[idx]);
+        team(arr,list1,list2,idx+1,sum1,sum2+arr[idx],minDiff);
+        list2.pop_back();
+    }
+}
+int tugOfWar(vector<int> &arr, int n)
+{
+    int minDiff=INT_MAX;
+    vector<int> list1;
+    vector<int> list2;
+    
+    team(arr,list1,list2,0,0,0,minDiff);
+    return minDiff;
+}
+TC-> O(2^n)
+SC->cannot be predicted
