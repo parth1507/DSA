@@ -1,0 +1,75 @@
+Method 1-> Using Recursion
+void postorder(TreeNode* root,vector<int> &ans){
+        if(root==NULL){
+            return;
+        }
+        
+        postorder(root->left,ans);
+        postorder(root->right,ans);
+        ans.push_back(root->val);
+        
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        
+        postorder(root,ans);
+        return ans;
+    }
+    
+    TC->O(n)
+    SC->O(n)
+
+Method 2-> Using 2 stack
+vector<int> postOrder(Node* node) {
+        vector<int> ans;
+        if(node==NULL) return ans;
+        
+        stack<Node*> st1,st2;
+        st1.push(node);
+        
+        while(!st1.empty()){
+            node=st1.top();
+            st1.pop();
+            st2.push(node);
+            
+            if(node->left!=NULL){
+                st1.push(node->left);
+            }
+            if(node->right!=NULL){
+                st1.push(node->right);
+            }
+        }
+        
+        while(!st2.empty()){
+            ans.push_back(st2.top()->data);
+            st2.pop();
+        }
+        
+        return ans;
+    }
+  
+  TC->O(n)
+  SC->O(2n)
+  
+  Method 3-> using 1 stack
+  vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        if(root==NULL)
+            return ans;
+        stack<TreeNode*> st;
+        st.push(root);
+        while(!st.empty())
+        {
+            root = st.top();
+            st.pop();
+            ans.push_back(root->val);
+            if(root->left)
+                st.push(root->left);
+            if(root->right)
+                st.push(root->right);
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+  TC->O(n)
+  SC->O(n)
