@@ -1,0 +1,45 @@
+Method 1->Recursion
+
+void inorder(TreeNode *root,vector<int> &ans){
+        if(root==NULL){
+            return;
+        }
+        
+        inorder(root->left,ans);
+        ans.push_back(root->val);
+        inorder(root->right,ans);
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        
+        inorder(root,ans);
+        return ans;
+    }
+   TC->O(n)
+   SC->O(n)
+
+Method 2-> using iterative method
+vector<int> inOrder(Node* root)
+    {
+        stack<Node*> st;
+        Node* node=root;
+        vector<int> ans;
+        
+        while(true){
+            if(node!=NULL){
+                st.push(node);
+                node=node->left;
+            }
+            else{
+                if(st.empty()) break;
+                node=st.top();
+                st.pop();
+                ans.push_back(node->data);
+                node=node->right;
+            }
+        }
+        return ans;
+        
+    }
+  TC->O(n)
+  SC->O(n)
