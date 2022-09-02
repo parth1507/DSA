@@ -1,0 +1,25 @@
+Method 1->
+ pair<int,int>diameterFast(Node* node){
+        if(node==NULL){
+            pair<int,int> p=make_pair(0,0);
+            return p;
+        }
+        
+        pair<int,int>left=diameterFast(node->left);
+        pair<int,int> right=diameterFast(node->right);
+        
+        int op1=left.first;
+        int op2=right.first;
+        int op3=left.second+right.second+1;
+        
+        pair<int,int>ans;
+        ans.first=max(op1,max(op2,op3));
+        ans.second=max(left.second,right.second)+1;
+        
+        return ans;
+    }
+    int diameter(Node* root) {
+        return diameterFast(root).first;
+    }
+  TC->O(N)
+  SC->O(N)
