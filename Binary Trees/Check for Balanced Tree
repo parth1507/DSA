@@ -1,0 +1,92 @@
+Method 1->
+ int height(Node* node){
+        //base case
+        if(node==NULL){
+            return 0;
+        }
+        
+        int left=height(node->left);
+        int right=height(node->right);
+        int ans=max(left,right)+1;
+        
+        return ans;
+    }
+    bool isBalanced(Node *root)
+    {
+       //base case
+       if(root==NULL){
+           return true;
+       }
+       bool left=isBalanced(root->left);
+       bool right=isBalanced(root->right);
+       
+       bool diff=abs(height(root->left)-height(root->right)) <=1;
+       
+       if(left && right && diff){
+           return true;
+       }
+       else {
+           return false;
+       }
+    }
+  
+  TC->O(N^2)
+  SC->O(N)
+  
+  Method 2->
+   pair<bool,int> isBalancedFast(TreeNode* root){
+        if(root==NULL){
+            pair<bool,int> p=make_pair(true,0);
+            return p;
+        }
+        
+        pair<bool,int> left=isBalancedFast(root->left);
+        pair<bool,int> right=isBalancedFast(root->right);
+        
+        bool leftAns=left.first;
+        bool rightAns=right.first;
+        
+        bool diff=abs(left.second-right.second) <=1;
+        
+        pair<bool,int> ans;
+        ans.second=max(left.second,right.second)+1;
+        
+        if(leftAns && rightAns && diff){
+            ans.first=true;
+        }
+        else{
+            ans.first=false;
+        }
+        return ans;
+    }
+    bool isBalanced(TreeNode* root) {
+        return isBalancedFast(root).first;
+    }
+    TC->O(N)
+    SC->O(N)
+    
+    Method 3->
+    bool isBalanced(TreeNode* root) {
+        return height(root) != -1;
+    }
+    int height(TreeNode* root){
+        if(!root)
+            return 1;
+        
+        int left = height(root->left);
+        
+        if(left == -1)
+            return -1;
+        
+        int right = height(root->right);
+        
+        if(right == -1)
+            return -1;
+        
+        if(abs(left - right) > 1)
+            return -1;
+        
+        return 1 + max(left, right);
+    }
+    TC->O(N)
+    SC->O(n)
