@@ -1,0 +1,19 @@
+Method 1->
+void recursion(TreeNode* root,int lvl,vector<int> &ans){
+        //base case
+        if(root==NULL){
+            return;
+        }
+        if(ans.size()==lvl){
+            ans.push_back(root->val);
+        }
+        recursion(root->right,lvl+1,ans);
+        recursion(root->left,lvl+1,ans);
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        recursion(root,0,ans);
+        return ans;
+    }
+  TC->O(n)
+  SC->O(height of tree)
