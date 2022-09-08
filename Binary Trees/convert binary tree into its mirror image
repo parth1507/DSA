@@ -1,0 +1,19 @@
+Method 1->
+void mirror(Node* node) {
+        if(node==NULL){
+            return;
+        }
+        if(node->left==NULL && node->right==NULL){
+            return;
+        }
+        
+        mirror(node->left);
+        mirror(node->right);
+        
+        Node* temp;
+        temp=node->left;
+        node->left=node->right;
+        node->right=temp;
+    }
+ TC->O(N)
+ SC->O(N)
