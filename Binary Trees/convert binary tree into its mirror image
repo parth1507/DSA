@@ -17,3 +17,17 @@ void mirror(Node* node) {
     }
  TC->O(N)
  SC->O(N)
+
+Method 2->
+TreeNode* invertTree(TreeNode* root) {
+        if((root==NULL) || (root->left==NULL && root->right==NULL)){
+            return root;
+        }
+        invertTree(root->left);
+        invertTree(root->right);
+        
+        swap(root->left,root->right);
+        return root;
+    }
+  TC->O(N)
+  SC->O(N)
