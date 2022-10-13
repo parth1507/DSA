@@ -1,5 +1,7 @@
 Method 1->
 
+Explanation:- In this type of sorting we take an element from a unsorted array and placed it in a sorted array.
+
 #include<iostream>
 #include<stdio.h>
 #include<bits/stdc++.h>
