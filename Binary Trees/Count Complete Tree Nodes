@@ -1,0 +1,36 @@
+Method 1->
+
+int findHeightLeft(TreeNode* node){
+        int left=0;
+        while(node){
+            left++;
+            node=node->left;
+        }
+        return left;
+    }
+
+    int findHeightRight(TreeNode* node){
+        int right=0;
+        while(node){
+            right++;
+            node=node->right;
+        }
+        return right;
+    }
+
+    int countNodes(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }
+
+        int lh=findHeightLeft(root);
+        int rh=findHeightRight(root);
+
+        if(lh==rh){
+            return pow(2,lh)-1;
+        }
+        return 1+countNodes(root->left)+countNodes(root->right);
+    }
+    
+ TC->O((logn)^2)
+ SC->O(logn)
