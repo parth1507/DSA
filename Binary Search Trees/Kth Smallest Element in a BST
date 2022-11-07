@@ -1,0 +1,22 @@
+Method 1->
+
+int ans,val;
+    void solve(TreeNode* root){
+        //base case
+        if(root==NULL){
+            return ;
+        }
+
+        solve(root->left);
+        val--;
+        if(val==0) ans=root->val;
+        solve(root->right);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        val=k;
+        solve(root);
+        return ans;
+    }
+  
+  TC->O(N)
+  SC->O(H)
