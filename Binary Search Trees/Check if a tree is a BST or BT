@@ -1,0 +1,16 @@
+Method 1->
+ bool checkBST(TreeNode* root,long min,long max){
+        if(!root) return true;
+        if(root->val>min && root->val<max){ 
+            bool left=checkBST(root->left,min,root->val);
+            bool right=checkBST(root->right,root->val,max);
+            return left && right;
+        }
+        return false;
+    }
+    bool isValidBST(TreeNode* root) {
+        return checkBST(root,LONG_MIN,LONG_MAX);
+    }
+  
+  TC->O(N)
+  SC->O(height of tree) or O(n) when it is a skew tree
