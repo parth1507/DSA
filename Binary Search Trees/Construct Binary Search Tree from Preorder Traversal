@@ -1,0 +1,40 @@
+Method 1->
+TreeNode* solve(vector<int>& preorder,int mini,int maxi,int &i){
+        if(i>=preorder.size()){
+            return NULL;
+        }
+        if(preorder[i] < mini || preorder[i] > maxi){
+            return NULL;
+        }
+
+        TreeNode* root=new TreeNode(preorder[i++]);
+        root->left=solve(preorder,mini,root->val,i);
+        root->right=solve(preorder,root->val,maxi,i);
+
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        int mini=INT_MIN;
+        int maxi=INT_MAX;
+        int i=0;
+        return solve(preorder,mini,maxi,i);
+    }
+  TC->O(3N)
+  SC->O(N) recursion stack
+  
+  Method 2-> Optimized code for method 1
+  TreeNode<int>* solve(vector<int> &preOrder,int &i,int bound){
+    if(i>=preOrder.size() || preOrder[i] > bound){
+        return NULL;
+    }
+    TreeNode<int>* root=new TreeNode<int>(preOrder[i++]);
+    root->left=solve(preOrder,i,root->data);
+    root->right=solve(preOrder,i,bound);
+    return root;
+}
+TreeNode<int>* preOrderTree(vector<int> &preOrder){
+    int i=0;
+    return solve(preOrder,i,INT_MAX);
+}
+TC->O(3n)
+SC->O(N) considering recursion stack
