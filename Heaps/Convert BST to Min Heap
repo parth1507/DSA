@@ -1,0 +1,37 @@
+Method 1->
+
+void solve(BinaryTreeNode* root,vector<int> &inorder){
+    //base case
+    if(root==NULL){
+        return ;
+    }
+    
+    solve(root->left,inorder);
+    inorder.push_back(root->data);
+    solve(root->right,inorder);
+}
+
+void minHeap(BinaryTreeNode* &root,vector<int>&inorder,int &i){
+    //base
+    if(root==NULL){
+        return ;
+    }
+    
+    root->data=inorder[i++];
+    minHeap(root->left,inorder,i);
+    minHeap(root->right,inorder,i);
+} 
+
+BinaryTreeNode* convertBST(BinaryTreeNode* root)
+{
+	vector<int> inorder;
+    solve(root,inorder);
+    
+    int index=0;
+    minHeap(root,inorder,index);
+    
+    return root;
+}
+
+TC->O(n) 
+SC->O(n)
