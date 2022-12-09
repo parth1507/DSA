@@ -1,0 +1,46 @@
+Method 1->
+
+int solve(TreeNode* root,int maxNum,int minNum){
+        //base case
+        if(root==NULL){
+            return maxNum-minNum;
+        }
+
+        maxNum=max(maxNum,root->val);
+        minNum=min(minNum,root->val);
+
+        return max(solve(root->left,maxNum,minNum),solve(root->right,maxNum,minNum));
+    } 
+    int maxAncestorDiff(TreeNode* root) {
+        int maxNum=INT_MIN;
+        int minNum=INT_MAX;
+
+        return solve(root,maxNum,minNum);
+    }
+  
+  TC->O(N)
+  SC->O(N)
+  
+  Method 2->
+  void solve(TreeNode* root,int maxNum,int minNum,int &ans){
+       if(root==NULL){
+           return ;
+       }
+
+       maxNum=max(maxNum,root->val);
+       minNum=min(minNum,root->val);
+       ans=max(ans,maxNum-minNum);
+
+       solve(root->left,maxNum,minNum,ans);
+       solve(root->right,maxNum,minNum,ans);
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        int maxNum=INT_MIN;
+        int minNum=INT_MAX;
+        int ans=0;
+
+        solve(root,maxNum,minNum,ans);
+        return ans;
+    }
+    TC->O(N)
+    SC->O(N)
