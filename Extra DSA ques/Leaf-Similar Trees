@@ -1,0 +1,28 @@
+Method 1->
+
+void preorder(TreeNode* root,vector<int> &leafNodes){
+        if(root==NULL){
+            return ;
+        }
+
+        if(root->left==NULL && root->right==NULL){
+            leafNodes.push_back(root->val);
+            return;
+        }
+
+        preorder(root->left,leafNodes);
+        preorder(root->right,leafNodes);
+    }
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        vector<int> leafNodes1,leafNodes2;
+
+        preorder(root1,leafNodes1);
+        preorder(root2,leafNodes2);
+
+        if(leafNodes1==leafNodes2){
+            return true;
+        }
+        return false;
+    }
+    TC->O(N)+O(N)
+    SC->O(N)
