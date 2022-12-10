@@ -1,0 +1,35 @@
+Method 1->
+
+ long long int MOD=1e9+7;
+    long long totalsum=0,ans=0;
+
+    int totalSum(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+
+        totalSum(root->left);
+        totalSum(root->right);
+        totalsum+=root->val;
+
+        return totalsum;
+    }
+    int getMaxProduct(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+
+        long long sum = getMaxProduct(root->left)+getMaxProduct(root->right)+root->val;
+        ans=max(ans,(totalsum-sum)*sum);
+
+        return sum; 
+    }
+    int maxProduct(TreeNode* root) {
+        totalsum=totalSum(root);
+        getMaxProduct(root);
+
+        return ans%MOD;
+    }
+    
+    TC->O(N) + O(N)
+    SC->O(N)
