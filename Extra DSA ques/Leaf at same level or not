@@ -1,0 +1,29 @@
+Method 1->
+
+void solve(Node* root,unordered_map<int,int> &m,int lvl){
+         if(root==NULL){
+             return ;
+         }
+         
+         if(root->left==NULL && root->right==NULL){
+             m[lvl]++;
+             return;
+         }
+         
+         solve(root->left,m,lvl+1);
+         solve(root->right,m,lvl+1);
+    }
+    
+    bool check(Node *root)
+    {
+        unordered_map<int,int> m;
+        int lvl=0;
+        
+        solve(root,m,lvl);
+        if(m.size() > 1){
+            return false;
+        }
+        return true;
+    }
+    TC->O(N)
+    SC->O(N)
