@@ -1,0 +1,23 @@
+Method 1 ->
+
+int count(int n,int steps,vector<int> &dp){
+         if(steps==n){
+             return 1;
+         }
+         if(steps > n){
+             return 0;
+         }
+
+         if(dp[steps]!= -1){
+             return dp[steps];
+         }
+
+         dp[steps]=count(n,steps+1,dp) + count(n,steps+2,dp);
+         return dp[steps];
+     }
+    int climbStairs(int n) {
+        vector<int> dp(n+1,-1);
+        return count(n,0,dp);
+    }
+  TC-O(N^2)
+  SC->O(N)
