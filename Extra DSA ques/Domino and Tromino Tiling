@@ -1,0 +1,52 @@
+Method 1-> rescursion
+
+long mod= 1e9+7;
+    int numTilings(int n) {
+        if(n<=1){
+            return 1;
+        }
+
+        if(n==2){
+            return 2;
+        }
+
+        return (2* numTilings(n-1)%mod+numTilings(n-3)%mod)%mod;
+    }
+  TC->time limit exceeded
+  
+ Method 2-> memoization
+ int mod=1e9+7;
+    int find(int n,vector<int> &dp){
+      if(dp[n]!=-1){
+       return dp[n];
+      }
+   
+    dp[n]=(2*find(n-1,dp)%mod + find(n-3,dp)%mod)%mod;
+    return dp[n];
+}
+    int numTilings(int n) {
+    vector<int> dp(1001,-1);
+    dp[0]=1;
+    dp[1]=1;
+    dp[2]=2;
+    
+    return find(n,dp);
+    }
+  TC->O(N^2)
+  SC->O(N+1)
+  
+  Method 3-> tabulation
+  int mod=1e9+7;
+    int numTilings(int n) {
+        vector<int> dp(1001,-1);
+        dp[0]=1;
+        dp[1]=1;
+        dp[2]=2;
+
+        for(int i=3;i<=n;i++){
+            dp[i]=(2*dp[i-1]%mod + dp[i-3]%mod)%mod;
+        }
+        return dp[n];
+    }
+  TC->O(N^2)
+  SC->O(N+1)
