@@ -1,0 +1,28 @@
+Method 1->brute force
+
+
+Method 2->optimized approach using heap
+int minStoneSum(vector<int>& piles, int k) {
+        priority_queue<int> pq;
+
+        for(auto x: piles){
+            pq.push(x);
+        }
+
+        while(k>0){
+            int num=pq.top();
+            pq.pop();
+            pq.push(num-floor(num/2));
+            k--;
+        }
+
+        int sum=0;
+        while(!pq.empty()){
+            int num=pq.top();
+            pq.pop();
+            sum+=num;
+        }
+        return sum;
+    }
+  TC->O(nlogn)
+  SC->O(n)
