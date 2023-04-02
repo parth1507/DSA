@@ -1,0 +1,49 @@
+Method 2-> optimized approach using binary search
+
+ int findIndex(int l,int r,vector<int>& potions,int minPotion){
+        
+        int index=-1;
+        while(l<=r){
+            int mid= l+(r-l)/2;
+
+            if(potions[mid] >= minPotion){
+                index=mid;
+                r=mid-1;
+            }
+            else{
+                l=mid+1;
+            }
+        }
+        return index;
+    }
+    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+        int m=spells.size();
+        int n=potions.size();
+
+        sort(potions.begin(),potions.end());
+
+        vector<int> ans;
+        int maxPotionsVal=potions[n-1];
+
+        for(int i=0;i<m;i++){
+
+            int spell=spells[i];
+            long long minPotion=ceil((1.0*success)/spell);
+
+
+            if(minPotion > maxPotionsVal){
+                ans.push_back(0);
+                continue;
+            }
+
+            int index=findIndex(0,n-1,potions,minPotion);
+            int count=n-index;
+
+            ans.push_back(count);
+        }
+
+        return ans;
+    }
+    
+    TC->O(m*logm)
+    SC->O(n)
