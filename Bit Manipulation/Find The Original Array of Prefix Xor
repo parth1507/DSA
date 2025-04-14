@@ -1,0 +1,31 @@
+Method 1-> Using XOR method
+
+Explanation:- just start from 1st index and take the xor of current value to its previous value to get the original array.
+
+Code:-
+
+def findArray(self, pref: List[int]) -> List[int]:
+        n=len(pref)
+        result=list(range(0,n))
+
+        result[0]=pref[0]
+
+        for i in range(1,n):
+            result[i]=pref[i]^pref[i-1]
+        
+        return result
+
+TC->O(N)
+SC->O(N):- we are taking a new list to store our values
+
+Method 2:- taking linear space
+
+def findArray(self, pref: List[int]) -> List[int]:
+        n=len(pref)
+        
+        for i in range(n-1,0,-1):
+            pref[i]=pref[i]^pref[i-1]
+        
+        return pref
+TC->O(N)
+SC->O(1) Since we are modifying the same original array
