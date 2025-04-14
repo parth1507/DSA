@@ -1,0 +1,7 @@
+Method 1-> using built-in functions
+
+def sortByBits(self, arr: List[int]) -> List[int]: 
+  sorted_numbers = sorted(numbers, key=lambda x: bin(x).count('1
+  return sorted_numbers
+
+use of bin-> bin(x) converts the integer x to its binary representation as a string
