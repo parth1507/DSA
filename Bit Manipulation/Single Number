@@ -1,0 +1,31 @@
+Method 1-> Using hashing
+
+def singleNumber(self, nums: List[int]) -> int:
+        single_number={}
+
+        for i in nums:
+            single_number[i] = single_number.get(i,0) + 1
+        
+        for key,value in single_number.items():
+            if value==1:
+                return key
+        
+        return -1
+
+TC-> o(N)+O((n/2)+1)
+SC-> O(n/2)+1
+
+Method 2-> using Bit Manipulation
+
+def occursOnce(a, n):
+    # Write your code here.
+    ans=0
+
+    for i in range(0,n):
+        ans=ans^a[i]
+    
+    return ans
+
+TC->O(n)
+SC->O(1)
+    
