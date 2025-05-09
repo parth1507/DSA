@@ -1,0 +1,49 @@
+Method 1-> Brute force
+
+def prevSmaller(arr):
+    # Always print -1 for the first element
+    print("-1", end=' ')
+
+    # Start from second element
+    for i in range(1, len(arr)):
+        # Look for a smaller element on the left of 'i'
+        for j in range(i - 1, -1, -1):
+            if arr[j] < arr[i]:
+                print(arr[j], end=' ')
+                break
+        else:
+            # If there is no smaller element on left of 'i', print -1
+            print("-1", end=' ')
+
+arr = [1, 5, 0, 3, 4, 5]
+prevSmaller(arr)
+
+TC->O(n^2)
+SC->O(N)
+
+Method 2:- Optimized way using stack
+Explanation:- We took each element and and compare it with top of the stack. If top of stack is larger then element then we 
+will keep poping it out until we top of the element is smaller then the element .
+
+def leftSmaller(self, arr):
+          #code here 
+          n=len(arr)
+          stack=[]
+          answer=[0]*n
+          
+          for i in range(0,n):
+              
+              while len(stack)!=0 and stack[-1]>=arr[i]:
+                  stack.pop()
+              
+              if len(stack)==0:
+                  answer[i]=-1
+              
+              else:
+                  answer[i]=stack[-1]
+              
+              stack.append(arr[i])
+          
+          return answer
+TC->O(2N)
+SC->O(N)
