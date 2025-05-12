@@ -1,0 +1,83 @@
+Method 1 -> Brute force:
+
+def sumSubarrayMins(self, arr: List[int]) -> int:
+        sum_of_subarray_mins=0
+        n=len(arr)
+        modulo=1000000007
+
+        for i in range(0,n):
+            ans=[]
+            for j in range(i,n):
+                ans.append(arr[j])
+                min_value=min(ans)
+                sum_of_subarray_mins=sum_of_subarray_mins+min_value
+        
+        return sum_of_subarray_mins%modulo
+
+TC-O(N^2)
+SC->O(N)
+
+Method 2 -> Optimized way
+Explanation:- In this code, we aim to calculate the sum of the minimum values of all subarrays of a given array. 
+We start by finding the next and previous smaller elements for each element in the array using helper functions that 
+utilize a stack for efficient computation. These functions help us determine the indices of the next and previous 
+smaller elements, which are crucial for calculating the contribution of each element to the sum. In the main function, 
+we then calculate how many subarrays each element is the minimum for by considering the number of elements to its left 
+and right that are greater or equal to it. We multiply this count by the element's value and sum these contributions, 
+ensuring to take the result modulo \(10^9 + 7\) to handle large numbers. This approach allows us to efficiently compute 
+the desired sum while managing potential overflow issues.
+
+Code:- 
+def find_next_smaller_element(self,arr):
+        n=len(arr)
+        s1=[]
+        ans=[0]*n
+
+        for i in range(n-1,-1,-1):
+            while len(s1)!=0 and arr[i]<arr[s1[-1]]:
+                s1.pop()
+            
+            if len(s1)==0:
+                ans[i]=n
+            else:
+                ans[i]=s1[-1]
+            
+            s1.append(i)
+        
+        return ans
+    
+    def find_prev_smaller_element(self,arr):
+        n=len(arr)
+        s1=[]
+        ans=[0]*n
+
+        for i in range(0,n):
+            while len(s1)!=0 and arr[i]<=arr[s1[-1]]:
+                s1.pop()
+            
+            if len(s1)==0:
+                ans[i]=-1
+            
+            else:
+                ans[i]=s1[-1]
+            
+            s1.append(i)
+        
+        return ans
+
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        n=len(arr)
+        nse=self.find_next_smaller_element(arr)
+        pre=self.find_prev_smaller_element(arr)
+        modulo=1000000007
+        sum_subarray_min=0
+
+        for i in range(0,n):
+            left=i-pre[i]
+            right=nse[i]-i
+            sum_subarray_min=((sum_subarray_min+arr[i]*(left*right))%modulo)
+        
+        return sum_subarray_min
+
+TC->o(5N)
+SC->O(5N)
