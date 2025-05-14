@@ -1,0 +1,130 @@
+Method 1-> Brute Force
+
+def subArrayRanges(self, nums: List[int]) -> int:
+        n=len(nums)
+        sum_of_subarray_ranges=0
+
+        for i in range(0,n):
+            ans=[]
+            for j in range(i,n):
+                ans.append(nums[j])
+                max_ele=max(ans)
+                min_ele=min(ans)
+
+                sum_of_subarray_ranges=sum_of_subarray_ranges+(max_ele-min_ele)
+        
+        return sum_of_subarray_ranges
+
+TC->O(N^2)
+SC->O(1)
+
+Method 2-> Optimized way using concepts of sum of subbarray minimums + sum of subarray maximums
+
+Explanation:- The intuition behind solving this problem involves efficiently determining the range of subarrays where each 
+element is the minimum or maximum. By using stacks, we can find the indices of the next and previous smaller elements for 
+each element, which helps in identifying the subarrays where the element is the minimum. Similarly, we find the indices of 
+the next and previous greater elements to identify the subarrays where the element is the maximum. Once we have these indices, 
+we calculate the sum of the minimum elements and the sum of the maximum elements in all subarrays by considering the contribution 
+of each element to the subarrays where it is the minimum or maximum. The final result is obtained by subtracting the sum of 
+minimum elements from the sum of maximum elements, giving us the desired difference. This approach leverages the properties of 
+stacks to avoid nested loops, ensuring the solution is both intuitive and efficient, with a linear time complexity.
+
+Code:- 
+def find_next_smaller_element(self,arr):
+        n=len(arr)
+        s1=[]
+        ans=[n]*n
+
+        for i in range(n-1,-1,-1):
+            while len(s1)!=0 and arr[i]<arr[s1[-1]]:
+                s1.pop()
+            
+            if len(s1)==0:
+                ans[i]=n
+            else:
+                ans[i]=s1[-1]
+            
+            s1.append(i)
+        
+        return ans
+    
+    def find_prev_smaller_element(self,arr):
+        n=len(arr)
+        s1=[]
+        ans=[-1]*n
+
+        for i in range(0,n):
+            while len(s1)!=0 and arr[i]<=arr[s1[-1]]:
+                s1.pop()
+            
+            if len(s1)==0:
+                ans[i]=-1
+            
+            else:
+                ans[i]=s1[-1]
+            
+            s1.append(i)
+        
+        return ans
+    
+    def find_prev_greater_ele(self,arr):
+        n=len(arr)
+        stack=[]
+        ans=[-1]*n
+        
+        for i in range(0,n):
+            while len(stack)!=0 and arr[stack[-1]]<=arr[i]:
+                stack.pop()
+            
+            if len(stack)==0:
+                ans[i]=-1
+            
+            else:
+                ans[i]=stack[-1]
+            
+            stack.append(i)
+        
+        return ans
+    
+    def find_next_greater_ele(self,arr):
+        n=len(arr)
+        stack=[]
+        ans=[n]*n
+        
+        for i in range(n-1,-1,-1):
+            while len(stack)!=0 and arr[i] > arr[stack[-1]]:
+                stack.pop()
+            
+            if len(stack)==0:
+                ans[i]=n
+            
+            else:
+                ans[i]=stack[-1]
+            
+            stack.append(i)
+        
+        return ans
+
+    def subArrayRanges(self, nums: List[int]) -> int:
+        n=len(nums)
+        nse=self.find_next_smaller_element(nums)
+        pre=self.find_prev_smaller_element(nums)
+        pge=self.find_prev_greater_ele(nums)
+        nge=self.find_next_greater_ele(nums)
+        modulo=1000000007
+        sum_subarray_min=0
+        sum_of_max_subarrays=0
+
+        for i in range(0,n):
+            left_min=i-pre[i]
+            right_min=nse[i]-i
+
+            left_max=i-pge[i]
+            right_max=nge[i]-i
+            sum_subarray_min=(sum_subarray_min+nums[i]*(left_min*right_min))
+            sum_of_max_subarrays+=(nums[i]*(left_max*right_max))
+        
+        return sum_of_max_subarrays-sum_subarray_min
+
+TC->O(10N)-> O(N)
+SC->O(10N)->O(N)
