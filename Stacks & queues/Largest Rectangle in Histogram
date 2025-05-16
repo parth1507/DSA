@@ -1,59 +1,125 @@
-Method 1->optimized approach
+Method 1-> Brute force:
+Explanation:- The idea is to consider each bar as the minimum height and find the maximum area. We traverse toward left 
+of it and add its height until we see a smaller element. We do the same thing for right side of it. 
+So the area with current bar as minimum is going to be height of current bar multiplied by total width 
+traversed on both left and right including the current bar. The area is the bar’s height multiplied by the 
+total traversed width. Finally, we return the maximum of all such areas.
 
- private:
-    vector<int> nextSmallerElement(vector<int>& arr, int n){
-        stack<int> s;
-        s.push(-1);
-        vector<int> ans(n);
+Code:- 
+def getMaxArea(self,arr):
+        #code here
+        n=len(arr)
+        max_rectangle_area=0
         
-        for(int i=n-1;i>=0;i--){
-            while(s.top()!=-1 && arr[s.top()] >= arr[i]){
-                s.pop();
-            }
-            ans[i]=s.top();
-            s.push(i);
-        }
-        return ans;
-    }
+        for i in range(0,n):
+            
+            leftarea=i-1
+            rightarea=i+1
+            curr=arr[i]
+            
+            while leftarea>=0 and arr[leftarea]>=curr:
+                leftarea=leftarea-1
+            
+            while rightarea<n and arr[rightarea]>=curr:
+                rightarea=rightarea+1
+            
+            width=rightarea-(leftarea+1)
+            area= width*arr[i]
+            
+            max_rectangle_area=max(max_rectangle_area,area)
+        
+        return max_rectangle_area
+TC->O(N^2) -> Time limit Exceeded
+SC->O(1)
+
+Method 2-> Better Method -> using 2 stacks
+Explanation:- Here we use the concept of Next smaller element and previous smaller element by using the 2 stacks given and 
+find out the maxArea
+
+Code:- 
+def find_next_smaller_ele(self,arr):
+        n=len(arr)
+        stack=[]
+        ans=[n]*n
+
+        for i in range(n-1,-1,-1):
+            while len(stack)!=0 and arr[stack[-1]]>=arr[i]:
+                stack.pop()
+            
+            if len(stack)==0:
+                ans[i]=n
+            
+            else:
+                ans[i]=stack[-1]
+            
+            stack.append(i)
+        
+        return ans
     
-    vector<int> prevSmallerElement(vector<int>&arr, int n){
-        stack<int> s;
-        s.push(-1);
-        vector<int> ans(n);
-        
-        for(int i=0;i<n;i++){
-            while(s.top()!=-1 && arr[s.top()] >= arr[i]){
-                s.pop();
-            }
-            ans[i]=s.top();
-            s.push(i);
-        }
-        return ans;
-    }
-public:
-    int largestRectangleArea(vector<int>& heights) {
-        int n=heights.size();
-        
-        vector<int>next(n);
-        next=nextSmallerElement(heights,n);
-        
-        vector<int>prev(n);
-        prev=prevSmallerElement(heights,n);
-        
-        int area=INT_MIN;
-        for(int i=0;i<n;i++){
-            int l=heights[i];
+    def find_prev_smaller_ele(self,arr):
+        n=len(arr)
+        stack=[]
+        ans=[-1]*n
+
+        for i in range(0,n):
+            while len(stack)!=0 and arr[stack[-1]]>arr[i]:
+                stack.pop()
             
-            if(next[i]==-1){
-                next[i]=n;
-            }
+            if len(stack)==0:
+                ans[i]=-1
             
-            int b=next[i]-prev[i]-1;
-            int new_area=l*b;
-            area=max(area,new_area);
-        }
-        return area;
-    }
-  
-  TC->O(N)+O(N)+O(N)=O(N)
-  SC->O(N)
+            else:
+                ans[i]=stack[-1]
+            
+            stack.append(i)
+        
+        return ans
+
+    def largestRectangleArea(self, heights: List[int]) -> int:
+
+        n=len(heights)       
+        nse=self.find_next_smaller_ele(heights)
+        pse=self.find_prev_smaller_ele(heights)
+        max_area_histogram=0
+
+        for i in range(0,n):
+            width=nse[i]-(pse[i]+1)
+            area=width*heights[i]
+            max_area_histogram=max(max_area_histogram,area)
+        
+        return max_area_histogram
+
+TC->O(2N)+O(2n) -> passed but have large time complexity
+SC->O(2N)
+
+Method 3-> Optimized approach
+Explanation:- When we compute next smaller element, we pop an item from the stack and mark current item as next 
+smaller of it. One important observation here is the item below every item in stack is the previous smaller element. 
+So we do not need to explicitly compute previous smaller. 
+
+Code:- 
+n=len(arr)
+    stack=[]
+    maxArea=0
+
+    for i in range(0,n):
+        while len(stack)!=0 and arr[stack[-1]]>arr[i]:
+            element=stack[-1]
+            stack.pop()
+
+            nse=i
+            pse=-1 if len(stack)==0 else stack[-1]
+            maxArea=max(arr[element]*(nse-pse-1),maxArea)
+        
+        stack.append(i)
+
+    while len(stack)!=0:
+        nse=n
+        element=stack[-1]
+        stack.pop()
+        pse=-1 if len(stack)==0 else stack[-1]
+        maxArea=max(arr[element]*(nse-pse-1),maxArea)
+    
+    return maxArea
+TC->O(n)+O(N)
+SC->O(N)
