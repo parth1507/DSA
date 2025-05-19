@@ -1,21 +1,51 @@
-Method 1-> brute force
-TC->O(n^2)
-SC->O(n)
+Method 1-> Brute Force: Time Limit Exceeded
+Explanation:- The idea is to use nested loops, where the outer loop iterates through the array to process each stock price.
+For each day, the inner loop moves leftward in the array, comparing previous prices and increasing the span count until 
+a higher price is found or the beginning of the array is reached.
 
-Mehtod 2-> usinf stack
-stack<pair<int,int>> s;
-    StockSpanner() {
+Code:- 
+def calculateSpan(self, arr):
+        #write code here
+        n=len(arr)
+        span=[1]*n
         
-    }
-    
-    int next(int price) {
-       int span=1;
-        while(!s.empty() && s.top().first<=price){
-            span+=s.top().second;
-            s.pop();
-        }
-        s.push({price,span});
-        return span;
-    }
-  TC->O(N)
-  SC->O(N)
+        for i in range(1,n):
+            j=i-1
+            while j>=0 and arr[j]<=arr[i]:
+                span[i]+=1
+                j-=1
+        
+        return span
+
+TC->O(N^2)
+SC->O(1)
+
+
+Method 2-> Optimized Approach
+Explanation :- If we take a closer look at the problem, we can notice that we need to mainly find index of the 
+previous greater element for every element.We see that span[i] on the day i can be easily computed if we know the 
+closest day preceding i, such that the price is greater than on that day than the price on the day i. If such a day 
+exists, let’s call it greater(i), otherwise, we define greater(i) = -1, The span is now computed as span[i] = i - greater(i).
+
+Code:- 
+def findStockSpans(prices: List[int]) -> List[int]:
+    # Write your code here.
+    n=len(prices)
+    stack=[]
+    ans=[-1]*n
+
+    for i in range(0,n):
+        while len(stack)!=0 and prices[stack[-1]] < prices[i]:
+            stack.pop()
+        
+        if len(stack)==0:
+            ans[i]=i-(-1)
+        
+        else:
+            ans[i]=i-stack[-1]
+        
+        stack.append(i)
+        
+    return ans
+TC->O(2N)
+SC->O(N)
