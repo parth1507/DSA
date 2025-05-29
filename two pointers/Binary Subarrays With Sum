@@ -1,0 +1,52 @@
+Method 1-> Naive Approach
+Explanation:- generate al substrings and match whether it is matching with goal or not
+
+Code:- 
+def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        n=len(nums)
+        count=0
+
+        for i in range(0,n):
+            sum1=0
+            for j in range(i,n):
+                sum1+=nums[j]
+                if sum1==goal:
+                    count+=1
+                    #break
+        
+        return count
+TC->O(N^2)
+SC->O(1)
+
+Method 2-> Optimized approach 
+Explanation:- The idea is to use a sliding window approach with two pointers to efficiently count the number of subarrays with sum equal to k. The key insight is 
+that we can find subarrays with sum exactly equal to k by calculating the difference between the count of subarrays with sum at most k and the count of subarrays 
+with sum at most k-1.
+
+
+Code:- 
+def atmost(self,nums,goal):
+        n=len(nums)
+        l=0
+        r=0
+        count=0
+        cursum=0
+
+        while r<n:
+            cursum+=nums[r]
+
+            while cursum > goal and l<=r:
+                cursum-=nums[l]
+                l=l+1
+            
+            count+=(r-l+1)
+            r=r+1
+        
+        return count
+
+
+    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        return self.atmost(nums,goal)-self.atmost(nums,goal-1)
+
+TC->O(N)
+SC->O(1)
