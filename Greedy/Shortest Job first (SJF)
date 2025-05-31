@@ -1,0 +1,19 @@
+Method 1-> only optimized approach
+
+Code:- 
+
+def solve(self, bt):
+        # Code here
+        n=len(bt)
+        bt.sort()
+        
+        waiting_time=0
+        time=0
+        
+        for i in range(0,n):
+            waiting_time+=time
+            time+=bt[i]
+        
+        return (waiting_time//n)
+TC->O(n)+ O(NlogN)
+SC->O(1)
