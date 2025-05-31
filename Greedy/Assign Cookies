@@ -1,0 +1,33 @@
+Method 1-> Optimized Method
+
+Explanation:- 
+The idea is to use Greedy Algorithm to assign smallest cookie to each child such that the child gets satisfied. 
+So, we can sort both greed[] and cookie[] array and start assigning the smallest cookies to the children with smallest greed. 
+We can initialize two pointers, say i and j to the beginning of greed[] and cookie[] respectively. Now, we can have 2 cases:
+
+1) If greed[i] <= cookie[j], this means that we can satisfy the ith child by assigning him jth cookie. So, we increase 
+the count of satisfied children by 1 and increment both the pointers to move to the next child and cookie.
+2) If greed[i] > cookie[j], this means that we cannot satisfy the ith child by assigning him jth cookie as he wants a 
+bigger cookie. So, increment j to move to the next bigger cookie.
+We continue traversing the array until either pointer reaches the end of its respective array.
+
+Code:- 
+def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        n=len(g)
+        m=len(s)
+        l=0
+        r=0
+        g.sort()
+        s.sort()
+        count=0
+
+        while l<n and r<m:
+            if g[l] <= s[r]:
+                count+=1
+                l=l+1
+            
+            r+=1
+        
+        return count
+TC->O(mlogm) + O(nlogn) + O(N)
+SC->O(1)
