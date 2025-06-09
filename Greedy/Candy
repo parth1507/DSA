@@ -1,0 +1,62 @@
+Method 1:- greedy approach
+
+Explanation:- Each child must receive at least one candy and we need to ensure that any child with a higher rating than a 
+neighbor receives more candies than that neighbor. A single pass cannot enforce both left‐and‐right constraints simultaneously, 
+but if we scan left‐to‐right first and then right‐to‐left, we can fix any violations on each side in turn.
+
+Code:- 
+def candy(self, ratings: List[int]) -> int:
+        n=len(ratings)
+
+        left=[1]*n
+        right=[1]*n
+
+        for i in range(1,n):
+            if ratings[i] > ratings[i-1]:
+                left[i]=left[i-1]+1
+            
+            else:
+                continue
+        
+        for i in range(n-2,-1,-1):
+            if ratings[i] > ratings[i+1]:
+                right[i]=right[i+1]+1
+            
+            else:
+                continue
+        
+        min_candies=0
+
+        for i in range(0,n):
+            min_candies+=(max(left[i],right[i]))
+        
+        return min_candies
+
+TC->O(3N)
+SC->O(2N)
+
+Method 2-> Little bit of optimization
+
+Code:- 
+def candy(self, ratings: List[int]) -> int:
+        n=len(ratings)
+
+        arr=[1]*n
+
+        for i in range(1,n):
+            if ratings[i] > ratings[i-1]:
+                arr[i]=arr[i-1]+1
+            
+            else:
+                continue
+        
+        for i in range(n-2,-1,-1):
+            if ratings[i] > ratings[i+1]:
+                arr[i]=max(arr[i],arr[i+1]+1)
+            
+            else:
+                continue 
+        
+        return sum(arr)
+TC->O(2N)
+SC->O(N)
